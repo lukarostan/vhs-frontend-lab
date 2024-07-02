@@ -1,0 +1,21 @@
+.page-header {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+
+  button {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    margin: 0 8px;
+
+    &:hover {
+      cursor: pointer;
+      background: white;
+      color: #444746;
+      transition: all 0.2s ease-out;
+    }
+  }
+}

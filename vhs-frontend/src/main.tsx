@@ -1,10 +1,43 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Index from './components/List'
+import './reset.css';
+import {TapeDetailsItem} from "./components/TapeDetailsItem";
+import {PageWrapper} from "./components/PageWrapper";
+import {Header} from "./components/Header";
+import {CreateTape} from "./components/CreateTape";
+import {PrimeReactProvider} from "primereact/api";
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import {EditTapeWrapper} from "./components/EditTapeWrapper";
+
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Index/>
+    },
+    {
+        path: '/details/:tapeId',
+        element: <TapeDetailsItem/>
+    },
+    {
+        path: '/edit/:tapeId',
+        element: <EditTapeWrapper/>
+    },
+    {
+        path: '/create',
+        element: <CreateTape isEdit={false}/>
+    },
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <React.StrictMode>
+        <PrimeReactProvider>
+            <PageWrapper>
+                <Header onAddEntry={() => router.navigate('/create')}/>
+                <RouterProvider router={router}/>
+            </PageWrapper>
+        </PrimeReactProvider>
+    </React.StrictMode>,
 )

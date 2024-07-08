@@ -10,6 +10,7 @@ import {CreateTape} from "./components/CreateTape";
 import {PrimeReactProvider} from "primereact/api";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import {EditTapeWrapper} from "./components/EditTapeWrapper";
+import {QueryClient, QueryClientProvider} from "react-query";
 
 
 const router = createBrowserRouter([
@@ -31,13 +32,17 @@ const router = createBrowserRouter([
     },
 ])
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <PrimeReactProvider>
-            <PageWrapper>
-                <Header onAddEntry={() => router.navigate('/create')}/>
-                <RouterProvider router={router}/>
-            </PageWrapper>
-        </PrimeReactProvider>
+        <QueryClientProvider client={queryClient}>
+            <PrimeReactProvider>
+                <PageWrapper>
+                    <Header onAddEntry={() => router.navigate('/create')}/>
+                    <RouterProvider router={router}/>
+                </PageWrapper>
+            </PrimeReactProvider>
+        </QueryClientProvider>
     </React.StrictMode>,
 )

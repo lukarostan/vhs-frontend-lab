@@ -30,8 +30,8 @@ const schema = z.object({
 export const CreateTape = ({initialTape, isEdit}) => {
     const {register, handleSubmit, control, watch, reset, formState: {errors}} = useForm<TapeInputs>({
         defaultValues: {
-            title: initialTape.title,
-            description: initialTape.description
+            title: initialTape ? initialTape.title : '',
+            description: initialTape ? initialTape.description : ''
         },
         resolver: zodResolver(schema)
 
@@ -40,7 +40,10 @@ export const CreateTape = ({initialTape, isEdit}) => {
 
     useEffect(() => {
         if (!isEdit) return;
-        reset(initialTape)
+        reset({
+            title: initialTape.title,
+            description: initialTape.description
+        })
     }, [reset])
 
 
@@ -49,7 +52,7 @@ export const CreateTape = ({initialTape, isEdit}) => {
         <form className='form'>
             <FloatLabel>
                 <label htmlFor="title">Title</label>
-                <InputText id="title" {...register('title', {required: true, value: initialTape.title})} />
+                <InputText id="title" {...register('title', {required: true})} />
             </FloatLabel>
             {errors.title && <span>This field is required</span>}
             <FloatLabel>

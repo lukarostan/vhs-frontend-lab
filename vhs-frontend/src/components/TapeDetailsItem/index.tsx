@@ -2,23 +2,13 @@ import './style.scss';
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {deleteOne, getOne} from "../../services/api/api";
+import {Tape} from "../List";
 
-type TapeDetailsItemProps = {
-    id: number;
-    title: string;
-    description: string;
-    genre: string;
-    duration: number;
-    releasedAt: number;
-    rentalPrice: number;
-    rentalDuration: number;
-    quantity: number;
-    thumbnail: string;
-}
+type TapeDetailsItemProps = Tape
 
 export const TapeDetailsItem = () => {
     const {tapeId} = useParams();
-    const [tape, setTape] = useState<{} | TapeDetailsItemProps>({})
+    const [tape, setTape] = useState<object | TapeDetailsItemProps>({})
     const deleteTape = () => {
         if (tapeId) {
             deleteOne(tapeId)
